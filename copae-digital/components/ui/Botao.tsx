@@ -13,8 +13,9 @@ export default (props: { title: string; onPress: any; color: string; textColor: 
             style={{
                 backgroundColor: color,
                 paddingVertical: 10,
-                paddingHorizontal: 30,
+                paddingHorizontal: 50,
                 borderRadius: 18,
+                marginBottom: 110,
                 ...style
             }}
         >

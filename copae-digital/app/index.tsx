@@ -1,39 +1,22 @@
 import React, { useState } from "react";
-import { Button, FlatList, Text, TextInput, View, StyleSheet } from "react-native";
+import { Button, FlatList, Text, View, StyleSheet } from "react-native";
 import Botao from "@/components/ui/Botao";
-import { nextId } from "../util/geral";
 
-interface Contato {
-  id: number;
-  nome: string
-}
-
-interface RenderItemProps {
-  contato: Contato;
-  aoRemover: (id: number) => void;
-}
+// ... (interfaces Contato e RenderItemProps permanecem iguais)
 
 const RenderItem = ({ contato, aoRemover }: RenderItemProps) => {
   return (
     <View style={styles.itemContainer}>
       <Text style={{ flex: 1 }}>{contato.nome}</Text>
-      <Button
-        title="-"
-        onPress={() => aoRemover(contato.id)}
-      />
+      <Button title="-" onPress={() => aoRemover(contato.id)} />
     </View>
   );
 };
 
 export default function Index() {
-  const [nome, setNome] = useState('');
-  const [lista, setLista] = useState<Contato[]>([]);
-
-  function adiciona() {
-    if (nome.trim() === '') return; 
-    setLista([...lista, { id: nextId(lista), nome: nome }]);
-    setNome('');
-  }
+  const [lista, setLista] = useState<Contato[]>([
+    { id: 1, nome: "Exemplo de Contato" } // Adicionado para teste visual
+  ]);
 
   function remove(id: number) {
     setLista(lista.filter(item => item.id !== id));
@@ -41,18 +24,8 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputRow}>
-        <TextInput
-          placeholder="Digite um nome ..."
-          value={nome}
-          onChangeText={t => setNome(t)}
-          style={styles.input}
-        />
-        <Button 
-          title="+"
-          onPress={adiciona}
-        />
-      </View>
+      {/* NOVO TÍTULO ADICIONADO AQUI */}
+      <Text style={styles.titulo}>Bem Vindo!</Text>
 
       <FlatList
         data={lista}
@@ -60,14 +33,13 @@ export default function Index() {
         renderItem={({ item }) => (
           <RenderItem contato={item} aoRemover={remove} />
         )}
-        ItemSeparatorComponent={() => <View style={{ height: 2 }} />}
         style={{ width: '100%' }}
       />
 
       <Botao
-        title="Limpar lista"
+        title="Começar"
         onPress={() => setLista([])}
-        color="#0000ff"
+        color="#618668"
         textColor="#ffffff"
         style={{ fontWeight: 'bold' }}
       />
@@ -80,26 +52,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: 'white',
+    backgroundColor: '#E7F5DC',
     paddingTop: 50 
   },
-  inputRow: {
-    flexDirection: 'row',
-    width: '100%',
-    paddingHorizontal: 10
+  titulo: {
+    fontSize: 45,          // Tamanho maior
+    fontWeight: 'bold',    // Negrito
+    textAlign: 'center',   // Centralizado
+    marginBottom: 20,      // Espaço até a lista
+    color: '#333'          // Cor mais escura
   },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 8,
-    borderRadius: 4
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#eeeeee',
-    width: '100%',
-    padding: 10,
-    alignItems: 'center'
-  }
+  
 });
