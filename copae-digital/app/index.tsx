@@ -1,76 +1,45 @@
-import React, { useState } from "react";
-import { Button, FlatList, Text, TextInput, View, StyleSheet } from "react-native";
-import Botao from "@/components/ui/Botao";
-import { nextId } from "../util/geral";
+import React from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import Botao from '@/components/ui/Botao';
+import { useRouter } from 'expo-router';
 
-interface Contato {
-  id: number;
-  nome: string
-}
-
-interface RenderItemProps {
-  contato: Contato;
-  aoRemover: (id: number) => void;
-}
-
-const RenderItem = ({ contato, aoRemover }: RenderItemProps) => {
-  return (
-    <View style={styles.itemContainer}>
-      <Text style={{ flex: 1 }}>{contato.nome}</Text>
-      <Button
-        title="-"
-        onPress={() => aoRemover(contato.id)}
-      />
-    </View>
-  );
-};
-
-export default function Index() {
-  const [nome, setNome] = useState('');
-  const [lista, setLista] = useState<Contato[]>([]);
-
-  function adiciona() {
-    if (nome.trim() === '') return; 
-    setLista([...lista, { id: nextId(lista), nome: nome }]);
-    setNome('');
-  }
-
-  function remove(id: number) {
-    setLista(lista.filter(item => item.id !== id));
-  }
-
+export default function TelaInicial() {
+  const router = useRouter();
   return (
     <View style={styles.container}>
-      <View style={styles.inputRow}>
-        <TextInput
-          placeholder="Digite um nome ..."
-          value={nome}
-          onChangeText={t => setNome(t)}
-          style={styles.input}
-        />
-        <Button 
-          title="+"
-          onPress={adiciona}
+      
+      <View style={styles.headerContainer}>
+        <Text style={styles.boasVindas}>BEM VINDO!</Text>
+        <Text style={styles.subtituloPrincipal}>COPAE Digital</Text>
+        
+        <Text style={styles.descricao}>
+          Registro e acompanhamento de ocorrências escolares de forma simples e eficiente.
+        </Text>
+      </View>
+      <View style={styles.imageContainer}>
+        <Image 
+          source={require('@/assets/images/img tcc.png')} 
+          style={styles.ilustracao}
+          resizeMode="contain"
         />
       </View>
+      <View style={styles.footerContainer}>
+        <View style={styles.buttonWrapper}>
+          <Botao 
+            title="Começar" 
+            onPress={() => router.push('/teladelogin')} 
+            color="#618668" 
+            textColor="#ffffff" 
+            style={styles.botaoTexto}
+          />
+        </View>
 
-      <FlatList
-        data={lista}
-        keyExtractor={(item) => item.id.toString()} 
-        renderItem={({ item }) => (
-          <RenderItem contato={item} aoRemover={remove} />
-        )}
-        ItemSeparatorComponent={() => <View style={{ height: 2 }} />}
-        style={{ width: '100%' }}
-      />
-
-      <Botao
-        title="Limpar lista"
-        onPress={() => setLista([])}
-        color="#0000ff"
-        textColor="#ffffff"
-        style={{ fontWeight: 'bold' }}
-      />
+        <Image 
+          source={require('@/assets/images/if_logo.png')} 
+          style={styles.logoIf} 
+          resizeMode="contain" 
+        />
+      </View>
     </View>
   );
 }
@@ -78,28 +47,81 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    backgroundColor: 'white',
-    paddingTop: 50 
+    backgroundColor: '#E7F5DC',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 40, 
+    paddingBottom: 30,
   },
-  inputRow: {
-    flexDirection: 'row',
+  headerContainer: {
     width: '100%',
-    paddingHorizontal: 10
+    alignItems: 'center',
+    zIndex: 2,
   },
-  input: {
+  boasVindas: {
+    fontSize: 38,
+    fontWeight: '900', 
+    color: '#000000',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+  },
+  subtituloPrincipal: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333333',
+    marginTop: 1,
+    marginBottom: 25,
+  },
+  descricao: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#000000',
+    textAlign: 'center',
+    lineHeight: 24,
+    paddingHorizontal: 15,
+  },
+  imageContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 8,
-    borderRadius: 4
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#eeeeee',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
-    padding: 10,
-    alignItems: 'center'
-  }
+    maxHeight: '100%',
+    marginVertical: -120,
+  },
+  ilustracao: {
+    flex: 1,
+    height: '100%',
+    tintColor: undefined, 
+    ...({ mixBlendMode: 'multiply' } as any), 
+  },
+  footerContainer: {
+    width: '100%',
+    alignItems: 'center',
+    gap: 25,
+  },
+  buttonWrapper: {
+    width: 250,
+    height: 50,
+    borderRadius: 25,
+    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  botaoTexto: {
+    fontSize: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: '600',
+
+  },
+  logoIf: {
+    width: 100,
+    height: 60,
+  },
 });

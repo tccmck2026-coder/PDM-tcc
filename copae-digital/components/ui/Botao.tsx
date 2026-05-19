@@ -12,8 +12,8 @@ export default (props: { title: string; onPress: any; color: string; textColor: 
             onPress={onPress}
             style={{
                 backgroundColor: color,
-                paddingVertical: 10,
-                paddingHorizontal: 30,
+                paddingVertical: 15,
+                paddingHorizontal: 155,
                 borderRadius: 18,
                 ...style
             }}
