@@ -21,5 +21,4 @@ export default (props: { title: string; onPress: any; color: string; textColor: 
             <Text style={{color: textColor, ...style}}>{title}</Text>
         </Pressable>
     );
-
 }

@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, Image, } from "react-native";
 import Botao from '@/components/ui/Botao'
+import { useRouter } from 'expo-router';
 
 export default function Teladelogin() {
+   const router = useRouter();
   return (
     
      <View style={styles.headerContainer}>
@@ -14,7 +16,16 @@ export default function Teladelogin() {
                />
              </View>
     </View>
+
+     <Botao 
+                title="Entrar" 
+                onPress={() => router.push('/telaprincipal')} 
+                color="#618668" 
+                textColor="#fffff" 
+                style={styles.botaoTexto}
+              />
       </View>
+      
   );
 }
 
@@ -47,4 +58,10 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
     marginVertical: -120,
   },
+  botaoTexto:{
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 0,
+
+  }
 })
