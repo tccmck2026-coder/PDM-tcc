@@ -1,60 +1,42 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from 'expo-router';
+import TabNavigation from "@/components/ui/tab-navigation";
 
 export default function TelaPrincipal() {
+  const router = useRouter(); 
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.titulo}>COPAE Digital</Text>
-        <Text style={styles.subtitulo}>Gestão de Ocorrências - IFPB</Text>
-      </View>
-
-      <ScrollView style={styles.conteudo} contentContainerStyle={styles.conteudoInner}>
-        <View style={styles.botoesGrid}>
-          <TouchableOpacity style={styles.botaoCard}>
-  <Ionicons name="document-text-outline" size={36} color="#4a7c4e" />
-  <Text style={styles.botaoCardTexto}>Ocorrências</Text>
-</TouchableOpacity>
-
-<TouchableOpacity style={styles.botaoCard}>
-  <Ionicons name="people-outline" size={36} color="#4a7c4e" />
-  <Text style={styles.botaoCardTexto}>Envolvidos</Text>
-</TouchableOpacity>
+        <View style={styles.header}>
+          <Text style={styles.titulo}>COPAE Digital</Text>
+          <Text style={styles.subtitulo}>Gestão de Ocorrências - IFPB</Text>
         </View>
-      </ScrollView>
-      <View style={styles.bottomBar}>
-  <TouchableOpacity style={styles.botaoNav}>
-    <Ionicons name="home-outline" size={24} color="#333" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.botaoNav}>
-    <Ionicons name="document-text-outline" size={24} color="#333" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.botaoNav}>
-    <Ionicons name="notifications-outline" size={24} color="#333" />
-  </TouchableOpacity>
-  <TouchableOpacity style={styles.botaoNav}>
-    <Ionicons name="person-outline" size={24} color="#333" />
-  </TouchableOpacity>
-</View>
+
+        <ScrollView style={styles.conteudo} contentContainerStyle={styles.conteudoInner}>
+          <View style={styles.botoesGrid}>
+
+            <TouchableOpacity 
+              style={styles.botaoCard}  onPress={() => router.push('/ocorrencias')}>  
+              <Ionicons name="document-text-outline" size={36} color="#4a7c4e" />
+              <Text style={styles.botaoCardTexto}>Ocorrências</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              style={styles.botaoCard} onPress={() => router.push('/envolvidos')}>
+              <Ionicons name="people-outline" size={36} color="#4a7c4e" />
+              <Text style={styles.botaoCardTexto} >Envolvidos</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+        <TabNavigation/>
+        
     </View>
+      
   );
 }
 
 const styles = StyleSheet.create({
-  bottomBar: {
-  flexDirection: "row",
-  justifyContent: "space-around",
-  alignItems: "center",
-  backgroundColor: "#fff",
-  borderTopWidth: 1,
-  borderTopColor: "#b0adad",
-  paddingVertical: 12,
-},
-botaoNav: {
-  alignItems: "center",
-  justifyContent: "center",
-  padding: 8,
-},
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -88,19 +70,19 @@ botaoNav: {
   },
   botoesGrid: {
     flexDirection: "row",
-    gap: 30,
-    marginTop: 8,
+    gap: 50,
+    marginTop: 50,
   },
   botaoCard: {
-    width: 120,
-    height: 100,
+    width: 125,
+    height: 120,
     backgroundColor: "#fff",
     borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
     borderColor: "#b0adad",
-    gap: 8,
+    gap: 5,
   },
   botaoCardTexto: {
     fontSize: 15,

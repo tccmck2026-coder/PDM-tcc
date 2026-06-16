@@ -3,7 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import TabNavigation from "@/components/ui/tab-navigation";
 
-export default function Ocorrencias() {
+export default function Envolvidos() {
   const router = useRouter();
 
   return (
@@ -12,10 +12,10 @@ export default function Ocorrencias() {
         <TouchableOpacity onPress={() => router.back()} style={styles.botaoVoltar}>
           <Ionicons name="arrow-back-outline" size={24} color="#ffffff" />
         </TouchableOpacity>
-        <Text style={styles.titulo}>Ocorrências</Text>
+        <Text style={styles.titulo}>Envolvidos</Text>
         <View style={styles.espacador} />
       </View>
-        <TabNavigation />
+      <TabNavigation />
     </View>
   );
 }
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   botaoVoltar: {
-    padding: 1,
+    padding: 4,
   },
   titulo: {
     flex: 1,
@@ -47,20 +47,4 @@ const styles = StyleSheet.create({
   espacador: {
     width: 32, 
   },
-  bottomBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "#fff",
-    borderTopWidth: 1,
-    borderTopColor: "#b0adad",
-    paddingVertical: 5,
-    width: -80,
-    height: 80,
-        
-    },
-    botaoNav: {
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 30,
-    },
 });
