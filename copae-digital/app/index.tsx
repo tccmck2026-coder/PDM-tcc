@@ -47,7 +47,7 @@ export default function TelaInicial() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E7F5DC',
+    backgroundColor: '#e7f5dc',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 24,
