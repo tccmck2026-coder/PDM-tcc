@@ -20,6 +20,7 @@ export default function Relatorios() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: "space-between",
     },
     header: {
         width: "100%",

@@ -1,9 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import TabNavigation from "@/components/ui/tab-navigation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
-import TabNavigation from "@/components/ui/tab-navigation";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Ocorrencias() {
+
+  const ocorrencias = [{id:1, descricao: ""},{id:1, descricao: ""}]
   const router = useRouter();
 
   return (
@@ -20,10 +22,10 @@ export default function Ocorrencias() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create({iner: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: "space-between",
   },
   header: {
     width: "100%",
