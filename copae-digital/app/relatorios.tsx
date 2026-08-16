@@ -1,4 +1,3 @@
-
 import TabNavigation from "@/components/ui/tab-navigation";
 import { Text, View,StyleSheet } from "react-native";
 
@@ -12,32 +11,30 @@ export default function Relatorios() {
             </View>
             <TabNavigation /> 
         </View>
-
     )
-
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "space-between",
-    },
-    header: {
-        width: "100%",
-        backgroundColor: "#4a7c4e",
-        paddingTop: 40,
-        paddingBottom: 16,
-        paddingHorizontal: 16,
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    textoInicial: {
-        flex: 1,
-        fontSize: 22,
-        fontWeight: "bold",
-        color: "#ffffff",
-        textAlign: "center",
-    
-    },
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
 
+  header: {
+    width: "100%",
+    backgroundColor: "#4a7c4e",
+    paddingTop: 40,
+    paddingBottom: 16,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  textoInicial: {
+    flex: 1,
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#ffffff",
+    textAlign: "center",
+  },
 });

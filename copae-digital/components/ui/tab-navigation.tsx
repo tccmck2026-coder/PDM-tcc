@@ -18,28 +18,24 @@ export default function TabNavigation() {
                 <Ionicons name="person-outline" size={24} color="#333" />
             </TouchableOpacity>
         </View>
-
     )
-
 }
 
 const styles = StyleSheet.create({
-    bottomBar: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        backgroundColor: "#fff",
-        borderTopWidth: 1,
-        borderTopColor: "#b0adad",
-        paddingVertical: 5,
-        width: -80,
-        height: 80,
-        
-    },
-    botaoNav: {
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 30,
-    },
-})
+  bottomBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#fff",
+    borderTopWidth: 1,
+    borderTopColor: "#b0adad",
+    paddingVertical: 5,
+    width: -80,
+    height: 80, 
+  },
 
-
+  botaoNav: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 30,
+  },
+});

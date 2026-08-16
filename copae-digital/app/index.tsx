@@ -54,11 +54,13 @@ const styles = StyleSheet.create({
     paddingTop: 40, 
     paddingBottom: 30,
   },
+
   headerContainer: {
-    width: '100%',
+    width: '80%',
     alignItems: 'center',
     zIndex: 2,
   },
+
   boasVindas: {
     fontSize: 38,
     fontWeight: '900', 
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 0.5,
   },
+
   subtituloPrincipal: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 25,
   },
+
   descricao: {
     fontSize: 17,
     fontWeight: '600',
@@ -81,25 +85,29 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     paddingHorizontal: 15,
   },
+
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    maxHeight: '100%',
+    maxHeight: '90%',
     marginVertical: -120,
   },
+
   ilustracao: {
     flex: 1,
     height: '100%',
     tintColor: undefined, 
     ...({ mixBlendMode: 'multiply' } as any), 
   },
+
   footerContainer: {
     width: '100%',
     alignItems: 'center',
     gap: 25,
   },
+
   buttonWrapper: {
     width: 250,
     height: 50,
@@ -113,13 +121,14 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+
   botaoTexto: {
     fontSize: 18,
     alignItems: "center",
     justifyContent: "center",
     fontWeight: '600',
-
   },
+  
   logoIf: {
     width: 100,
     height: 60,

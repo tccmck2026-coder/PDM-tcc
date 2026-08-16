@@ -32,7 +32,6 @@ export default function TelaPrincipal() {
         <TabNavigation/>
         
     </View>
-      
   );
 }
 
@@ -41,6 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+
   header: {
     width: "100%",
     backgroundColor: "#4a7c4e",
@@ -49,30 +49,36 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: "center",
   },
+
   titulo: {
     fontSize: 32,
     marginTop: -10,
     fontWeight: "bold",
     color: "#ffffff",
   },
+
   subtitulo: {
     fontSize: 15,
     color: "#d4ecd6",
     marginTop: 2,
   },
+
   conteudo: {
     flex: 1,
     width: "100%",
   },
+
   conteudoInner: {
     padding: 20,
     alignItems: "center",
   },
+
   botoesGrid: {
     flexDirection: "row",
     gap: 50,
     marginTop: 50,
   },
+
   botaoCard: {
     width: 125,
     height: 120,
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
     borderColor: "#b0adad",
     gap: 5,
   },
+  
   botaoCardTexto: {
     fontSize: 15,
     color: "#333",

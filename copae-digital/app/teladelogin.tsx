@@ -4,9 +4,9 @@ import { useRouter } from 'expo-router';
 
 export default function Teladelogin() {
    const router = useRouter();
-  return (
-    
-     <View style={styles.headerContainer}>
+ 
+   return (
+    <View style={styles.headerContainer}>
     <View style={styles.container}>
     <Text style={styles.titulo}>COPAE Digital</Text>
         <View style={styles.imagem}>
@@ -21,11 +21,10 @@ export default function Teladelogin() {
                 title="Entrar" 
                 onPress={() => router.push('/telaprincipal')} 
                 color="#618668" 
-                textColor="#fffff" 
+                textColor="#fff" 
                 style={styles.botaoTexto}
               />
       </View>
-      
   );
 }
 
@@ -36,14 +35,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
   },
-   headerContainer: {
+
+  headerContainer: {
     flex: 1,
     width: '100%',
     alignItems: 'center',
     zIndex: 1,
   },
 
- titulo: {
+  titulo: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#333333',
@@ -51,17 +51,18 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     fontFamily: "arial",
   },
-    imagem: {
+
+  imagem: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     maxHeight: "100%",
     marginVertical: -120,
   },
+
   botaoTexto:{
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 0,
-
-  }
-})
+  },
+});

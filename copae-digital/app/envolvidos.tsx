@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "space-between",
   },
+
   header: {
     width: "100%",
     backgroundColor: "#4a7c4e",
@@ -35,9 +36,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+
   botaoVoltar: {
     padding: 4,
   },
+
   titulo: {
     flex: 1,
     fontSize: 22,
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlign: "center",
   },
+  
   espacador: {
     width: 32, 
   },
