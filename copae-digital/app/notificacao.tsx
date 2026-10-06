@@ -1,4 +1,3 @@
-import TabNavigation from "@/components/ui/tab-navigation";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function Notificacao() {
@@ -9,7 +8,6 @@ export default function Notificacao() {
                 Notificações
                 </Text>
             </View>
-            <TabNavigation /> 
         </View>
     )
 }

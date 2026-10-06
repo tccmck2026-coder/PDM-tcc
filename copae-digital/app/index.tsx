@@ -13,7 +13,7 @@ export default function TelaInicial() {
         <Text style={styles.subtituloPrincipal}>COPAE Digital</Text>
         
         <Text style={styles.descricao}>
-          Registro e acompanhamento de ocorrências escolares de forma simples e eficiente.
+          Registro e acompanhamento de ocorrências.
         </Text>
       </View>
       <View style={styles.imageContainer}>
@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
 
-  headerContainer: {
-    width: '80%',
-    alignItems: 'center',
-    zIndex: 2,
-  },
+ headerContainer: {
+  width: '100%',
+  alignItems: 'center',
+  zIndex: 2,
+},
 
   boasVindas: {
     fontSize: 38,
@@ -78,12 +78,10 @@ const styles = StyleSheet.create({
   },
 
   descricao: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '600',
     color: '#000000',
     textAlign: 'center',
-    lineHeight: 24,
-    paddingHorizontal: 15,
   },
 
   imageContainer: {

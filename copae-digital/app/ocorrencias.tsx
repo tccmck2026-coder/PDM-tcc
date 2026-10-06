@@ -2,10 +2,16 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-nati
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import TabNavigation from "@/components/ui/tab-navigation";
 
 const URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const KEY = process.env.EXPO_PUBLIC_SUPABASE_KEY!;
+
+type Envolvido = {
+  id: number;
+  nome: string;
+  matricula: string;
+  tipo: string;
+};
 
 type Ocorrencia = {
   id: number;
@@ -15,7 +21,9 @@ type Ocorrencia = {
   categorias: string | string[];
   status: string;
   providencias: string;
-  envolvidos: string;
+  ocorrencia_envolvido?: {
+    envolvido: Envolvido | null;
+  }[];
 };
 
 const NIVEL: Record<string, { backgroundColor: string; color: string }> = {
@@ -24,17 +32,25 @@ const NIVEL: Record<string, { backgroundColor: string; color: string }> = {
   Gravissimo: { backgroundColor: "#fca5a5", color: "#7f1d1d" },
 };
 
-const NIVEL_TEXTO: Record<string, string> = { Leve: "Leve", Grave: "Grave", Gravissimo: "Gravíssimo" };
-const STATUS: Record<string, string> = { "Em andamento": "#facc15", Finalizado: "#22c55e", Cancelado: "#ef4444" };
+const NIVEL_TEXTO: Record<string, string> = {Leve: "Leve", Grave: "Grave", Gravissimo: "Gravíssimo"};
+
+const STATUS: Record<string, string> = {"Em andamento": "#facc15", Finalizado: "#22c55e", Cancelado: "#ef4444"};
 
 function formatarData(valor: string) {
   if (!valor) return "";
-  return new Date(`${valor.split("T")[0]}T12:00:00`).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }).replace(".", "");
+
+  return new Date(`${valor.split("T")[0]}T12:00:00`)
+    .toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "short",
+    })
+    .replace(".", "");
 }
 
 function formatarCategorias(valor: string | string[]) {
   if (!valor) return [];
   if (Array.isArray(valor)) return valor;
+
   try {
     const resultado = JSON.parse(valor);
     return Array.isArray(resultado) ? resultado : [resultado];
@@ -50,9 +66,22 @@ export default function Ocorrencias() {
   useEffect(() => {
     async function buscar() {
       try {
-        const resposta = await fetch(`${URL}/rest/v1/ocorrencia?select=*&order=data.desc`, { headers: { apikey: KEY, Authorization: `Bearer ${KEY}` } });
-        if (!resposta.ok) throw new Error(await resposta.text());
+        const resposta = await fetch(
+          `${URL}/rest/v1/ocorrencia?select=*,ocorrencia_envolvido(envolvido(id,nome,matricula,tipo))&order=data.desc`,
+          {
+            headers: {
+              apikey: KEY,
+              Authorization: `Bearer ${KEY}`,
+            },
+          }
+        );
+
+        if (!resposta.ok) {
+          throw new Error(await resposta.text());
+        }
+
         const dados = await resposta.json();
+
         setOcorrencias(Array.isArray(dados) ? dados : []);
       } catch (erro) {
         console.error("Erro ao buscar ocorrências:", erro);
@@ -65,50 +94,132 @@ export default function Ocorrencias() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}><Ionicons name="arrow-back-outline" size={24} color="#fff" /></TouchableOpacity>
-        <Text style={styles.titulo}>Ocorrências</Text>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.botaoVoltar}
+        >
+          <Ionicons
+            name="arrow-back-outline"
+            size={24}
+            color="#ffffff"
+          />
+        </TouchableOpacity>
+
+        <Text style={styles.titulo}>
+          Ocorrências
+        </Text>
+
         <View style={styles.espacador} />
       </View>
 
-      <ScrollView style={styles.lista} contentContainerStyle={styles.listaConteudo}>
-        {ocorrencias.map((ocorrencia) => (
-          <View key={ocorrencia.id} style={styles.card}>
-            <View style={styles.topo}>
-              <View style={styles.tags}>
-                <Text style={[styles.nivel, NIVEL[ocorrencia.nivel] || NIVEL.Leve]}>{NIVEL_TEXTO[ocorrencia.nivel] || ocorrencia.nivel}</Text>
+      <ScrollView
+        style={styles.lista}
+        contentContainerStyle={styles.listaConteudo}
+      >
+        {ocorrencias.map((ocorrencia) => {
+          const envolvidos = (
+            ocorrencia.ocorrencia_envolvido || []
+          )
+            .map((item) => item.envolvido)
+            .filter((item): item is Envolvido => Boolean(item));
 
-                {formatarCategorias(ocorrencia.categorias).map((categoria: any, index: number) => {
-                  const texto = typeof categoria === "object" ? categoria.valor : categoria;
-                  return texto ? <Text key={`${texto}-${index}`} style={styles.categoria}>{texto}</Text> : null;
-                })}
+          return (
+            <View
+              key={ocorrencia.id}
+              style={styles.card}
+            >
+              <View style={styles.topo}>
+                <View style={styles.tags}>
+                  <Text
+                    style={[
+                      styles.nivel,
+                      NIVEL[ocorrencia.nivel] || NIVEL.Leve,
+                    ]}
+                  >
+                    {NIVEL_TEXTO[ocorrencia.nivel] || ocorrencia.nivel}
+                  </Text>
+
+                  {formatarCategorias(ocorrencia.categorias).map(
+                    (categoria: any, index: number) => {
+                      const texto =
+                        typeof categoria === "object"
+                          ? categoria.valor
+                          : categoria;
+
+                      return texto ? (
+                        <Text
+                          key={`${texto}-${index}`}
+                          style={styles.categoria}
+                        >
+                          {texto}
+                        </Text>
+                      ) : null;
+                    }
+                  )}
+                </View>
+
+                <View style={styles.statusContainer}>
+                  <View
+                    style={[
+                      styles.statusBolinha,
+                      {
+                        backgroundColor:
+                          STATUS[ocorrencia.status] || "#9ca3af",
+                      },
+                    ]}
+                  />
+
+                  <Text style={styles.statusTexto}>
+                    {ocorrencia.status}
+                  </Text>
+                </View>
               </View>
 
-              <View style={styles.statusContainer}>
-                <View style={[styles.statusBolinha, { backgroundColor: STATUS[ocorrencia.status] || "#9ca3af" }]} />
-                <Text style={styles.statusTexto}>{ocorrencia.status}</Text>
-              </View>
-            </View>
+              <Text style={styles.descricao}>
+                {ocorrencia.descricao ||
+                  "Descrição da ocorrência..."}
+              </Text>
 
-            <Text style={styles.descricao}>{ocorrencia.descricao || "Descrição da ocorrência..."}</Text>
+              <View style={styles.providenciasBox}>
+                <Text style={styles.providenciasTitulo}>
+                  ☑ Providências
+                </Text>
 
-            <View style={styles.providenciasBox}>
-              <Text style={styles.providenciasTitulo}>☑ Providências</Text>
-              <Text style={styles.providenciasTexto}>{ocorrencia.providencias || "Nenhuma providência registrada."}</Text>
-            </View>
-
-            <View style={styles.rodape}>
-              <View style={styles.envolvidosContainer}>
-                <Ionicons name="people-outline" size={15} color="#8f9991" />
-                <Text style={styles.envolvidos}>{ocorrencia.envolvidos || "Envolvidos..."}</Text>
+                <Text style={styles.providenciasTexto}>
+                  {ocorrencia.providencias ||
+                    "Nenhuma providência registrada."}
+                </Text>
               </View>
 
-              <Text style={styles.data}>{formatarData(ocorrencia.data)}</Text>
+              <View style={styles.rodape}>
+                <View style={styles.envolvidosContainer}>
+                  <Ionicons
+                    name="people-outline"
+                    size={15}
+                    color="#8f9991"
+                  />
+
+                  <Text style={styles.envolvidos}>
+                    {envolvidos.length
+                      ? envolvidos
+                          .map(
+                            (envolvido) =>
+                              `${envolvido.nome} (${envolvido.matricula})`
+                          )
+                          .join(", ")
+                      : "Envolvidos..."}
+                  </Text>
+                </View>
+
+                <Text style={styles.data}>
+                  {formatarData(ocorrencia.data)}
+                </Text>
+              </View>
             </View>
-          </View>
-        ))}
+          );
+        })}
       </ScrollView>
 
-      <TabNavigation />
     </View>
   );
 }
@@ -181,7 +292,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 15,
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: "600",
   },
 
@@ -191,7 +302,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#d1d5db",
     borderRadius: 15,
     color: "#374151",
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: "600",
   },
 
@@ -210,13 +321,13 @@ const styles = StyleSheet.create({
 
   statusTexto: {
     color: "#6b7280",
-    fontSize: 10,
+    fontSize: 12,
   },
 
   descricao: {
     marginBottom: 8,
     color: "#9ca3af",
-    fontSize: 12,
+    fontSize: 13,
   },
 
   providenciasBox: {
@@ -229,37 +340,41 @@ const styles = StyleSheet.create({
 
   providenciasTitulo: {
     color: "#4a7c4e",
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: "600",
   },
 
   providenciasTexto: {
     marginTop: 3,
     color: "#9ca3af",
-    fontSize: 10,
+    fontSize: 12,
   },
 
   rodape: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
+    gap: 8,
     marginTop: 4,
   },
 
   envolvidosContainer: {
+    flex: 1,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: 5,
   },
 
   envolvidos: {
-    color: "#5d3b8c",
+    flex: 1,
+    color: "#374151",
     fontSize: 11,
+    lineHeight: 15,
   },
 
   data: {
     color: "#374151",
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "600",
   },
 });

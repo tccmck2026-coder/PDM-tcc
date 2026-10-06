@@ -1,7 +1,6 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from 'expo-router';
-import TabNavigation from "@/components/ui/tab-navigation";
 
 export default function TelaPrincipal() {
   const router = useRouter(); 
@@ -9,7 +8,7 @@ export default function TelaPrincipal() {
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.titulo}>COPAE Digital</Text>
+          <Text style={styles.titulo}>COPAE-Digital</Text>
           <Text style={styles.subtitulo}>Gestão de Ocorrências - IFPB</Text>
         </View>
 
@@ -21,15 +20,13 @@ export default function TelaPrincipal() {
               <Ionicons name="document-text-outline" size={36} color="#4a7c4e" />
               <Text style={styles.botaoCardTexto}>Ocorrências</Text>
             </TouchableOpacity>
-
             <TouchableOpacity 
-              style={styles.botaoCard} onPress={() => router.push('/envolvidos')}>
-              <Ionicons name="people-outline" size={36} color="#4a7c4e" />
-              <Text style={styles.botaoCardTexto} >Envolvidos</Text>
+              style={styles.botaoCard}  onPress={() => router.push('/notificacao')}>  
+              <Ionicons name="document-text-outline" size={36} color="#4a7c4e" />
+              <Text style={styles.botaoCardTexto}>Notificações</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <TabNavigation/>
         
     </View>
   );
