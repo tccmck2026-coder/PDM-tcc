@@ -1,7 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
 import Botao from '@/components/ui/Botao';
 import { useRouter } from 'expo-router';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function TelaInicial() {
   const router = useRouter();
@@ -24,15 +23,12 @@ export default function TelaInicial() {
         />
       </View>
       <View style={styles.footerContainer}>
-        <View style={styles.buttonWrapper}>
-          <Botao 
-            title="Começar" 
-            onPress={() => router.push('/teladelogin')} 
-            color="#618668" 
-            textColor="#ffffff" 
-            style={styles.botaoTexto}
-          />
-        </View>
+        
+        <Botao 
+          title="Começar" 
+          onPress={() => router.replace('/teladelogin')} 
+          color="#618668" 
+        />        
 
         <Image 
           source={require('@/assets/images/if_logo.png')} 
@@ -104,27 +100,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     gap: 25,
-  },
-
-  buttonWrapper: {
-    width: 250,
-    height: 50,
-    borderRadius: 25,
-    overflow: 'hidden',
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-
-  botaoTexto: {
-    fontSize: 18,
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: '600',
   },
   
   logoIf: {

@@ -1,68 +1,52 @@
-import { View, Text, StyleSheet, Image, } from "react-native";
-import Botao from '@/components/ui/Botao'
+import Botao from '@/components/ui/Botao';
 import { useRouter } from 'expo-router';
+import { Image, StyleSheet, Text, View } from "react-native";
 
 export default function Teladelogin() {
    const router = useRouter();
  
    return (
-    <View style={styles.headerContainer}>
     <View style={styles.container}>
-    <Text style={styles.titulo}>COPAE Digital</Text>
-        <View style={styles.imagem}>
-               <Image 
-                 source={require('@/assets/images/img.tcc-1.png')} 
-                 resizeMode="contain"
-               />
-             </View>
-    </View>
+      <Image
+        source={require('@/assets/images/img.tcc-1.png')} 
+        resizeMode="cover"
+        style={styles.backgroundImage}
+      />
 
-     <Botao 
-                title="Entrar" 
-                onPress={() => router.push('/telaprincipal')} 
-                color="#618668" 
-                textColor="#fff" 
-                style={styles.botaoTexto}
-              />
-      </View>
+      <Text style={styles.titulo}>COPAE Digital</Text>
+        
+          
+      <Botao 
+        title="Entrar" 
+        onPress={() => router.replace('/telaprincipal')} 
+        color="#618668" 
+        textColor="#fff" 
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    position: "relative",
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  headerContainer: {
-    flex: 1,
-    width: '100%',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-
+  
   titulo: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#333333',
     marginTop: 1,
-    marginBottom: 100,
+    marginBottom: 500,
     fontFamily: "arial",
   },
 
-  imagem: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    maxHeight: "100%",
-    marginVertical: -120,
+  backgroundImage: {
+    ...StyleSheet.absoluteFill,
   },
 
-  botaoTexto:{
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 0,
-  },
 });

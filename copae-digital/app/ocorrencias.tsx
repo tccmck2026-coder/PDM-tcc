@@ -1,7 +1,7 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const KEY = process.env.EXPO_PUBLIC_SUPABASE_KEY!;
@@ -93,25 +93,6 @@ export default function Ocorrencias() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.botaoVoltar}
-        >
-          <Ionicons
-            name="arrow-back-outline"
-            size={24}
-            color="#ffffff"
-          />
-        </TouchableOpacity>
-
-        <Text style={styles.titulo}>
-          Ocorrências
-        </Text>
-
-        <View style={styles.espacador} />
-      </View>
-
       <ScrollView
         style={styles.lista}
         contentContainerStyle={styles.listaConteudo}

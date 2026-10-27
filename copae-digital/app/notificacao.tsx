@@ -1,13 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function Notificacao() {
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.textoInicial}>
-                Notificações
-                </Text>
-            </View>
+            
         </View>
     )
 }
